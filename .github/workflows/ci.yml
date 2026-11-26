@@ -34,5 +34,8 @@ jobs:
       - run: npm run build
       - run: npm run check:fonts
       - run: npm test
+      # Pull requests only: on the push to main the commits are already merged, and a declared BREAKING CHANGE
+      # must reach the release job.
       - name: Breaking-change check
-        run: npm run check:breaking -- --base "origin/${{ github.base_ref || 'main' }}"
+        if: github.event_name == 'pull_request'
+        run: npm run check:breaking -- --base "origin/${{ github.base_ref }}"

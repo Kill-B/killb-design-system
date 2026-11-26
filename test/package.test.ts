@@ -68,6 +68,13 @@ describe('Repository files', () => {
     assert.match(release, /github\.event\.workflow_run\.head_repository\.full_name == github\.repository/);
     assert.match(read('package.json'), /"provenance": true/);
   });
+  it('AC16: the breaking-change check runs on pull requests only, against their base', () => {
+    const ci = read('.github/workflows/ci.yml');
+    assert.match(
+      ci,
+      /if: github\.event_name == 'pull_request'\n\s+run: npm run check:breaking -- --base "origin\/\$\{\{ github\.base_ref \}\}"/,
+    );
+  });
   it('AC12: CI runs lint, format, typecheck, build, the font check, tests and the breaking check', () => {
     const ci = read('.github/workflows/ci.yml');
     for (const step of [
