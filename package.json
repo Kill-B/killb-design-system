@@ -1,0 +1,71 @@
+{
+  "name": "@killb/design-system",
+  "version": "0.0.0-development",
+  "description": "KillB's design tokens and brand assets: colors, type, space and elevation for every KillB surface",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kill-B/killb-design-system.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "files": [
+    "dist/",
+    "fonts/",
+    "logos/",
+    "TRADEMARK.md"
+  ],
+  "exports": {
+    "./tokens.json": "./dist/tokens.json",
+    "./tokens.css": "./dist/tokens.css",
+    "./mui": {
+      "types": "./dist/mui.d.ts",
+      "default": "./dist/mui.js"
+    },
+    "./mintlify.json": "./dist/mintlify.json",
+    "./fonts/*": "./fonts/*",
+    "./logos/*": "./logos/*",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "node scripts/build.ts",
+    "check:fonts": "node scripts/check-fonts.ts fonts",
+    "check:breaking": "node scripts/check-breaking.ts",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test test/*.test.ts",
+    "prepack": "npm run build",
+    "semantic-release": "semantic-release"
+  },
+  "prettier": "@killb/code-style/prettier",
+  "peerDependencies": {
+    "@mui/material": "^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@mui/material": {
+      "optional": true
+    }
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@killb/code-style": "1.1.1",
+    "@types/node": "24.19.2",
+    "eslint": "9.39.5",
+    "prettier": "3.9.10",
+    "semantic-release": "25.0.9",
+    "typescript": "5.9.3"
+  }
+}
